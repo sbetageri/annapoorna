@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
  */
 public abstract class StudentContract {
 
-    public static final String AUTHORITY = "com.example.sai.annaporna";
+    public static final String AUTHORITY = "com.example.sai.annaporna.provider";
 
     public class SchoolDetails implements BaseColumns{
         public static final String TABLE_NAME = "school_details";
@@ -38,6 +38,7 @@ public abstract class StudentContract {
 
         public static final String CREATE_TABLE = "create table " + TABLE_NAME + "( " +
                 _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                NAME + " TEXT, " +
                 TYPE + " TEXT, " +
                 NUM_BOYS + " INTEGER, " +
                 NUM_GIRLS + " INTEGER, " +
@@ -143,6 +144,8 @@ public abstract class StudentContract {
         // linked with HealthReport
 
         public static final String TABLE_NAME = "extra_information_table";
+
+        public static final String PATH = "extra";
 
         public static final String _ID = "_id";
 
