@@ -6,8 +6,13 @@ import android.provider.BaseColumns;
  * Created by Admin on 06-09-2016.
  */
 public abstract class StudentContract {
+
+    public static final String AUTHORITY = "com.example.sai.annaporna";
+
     public class SchoolDetails implements BaseColumns{
         public static final String TABLE_NAME = "school_details";
+
+        public static final String PATH = "school";
 
         public static final String _ID = "_id";
 
@@ -41,11 +46,15 @@ public abstract class StudentContract {
                 COOK_COUNT + " INTEGER, " +
                 HEADMASTER_NAME + " TEXT, " +
                 HEADMASTER_PHONE_NUMBER + " TEXT);";
+
+        public static final String DROP_TABLE = "drop table " + TABLE_NAME;
     }
 
     public class StudentDetails implements BaseColumns {
 
         public static final String TABLE_NAME = "student_detail_table";
+
+        public static final String PATH = "student";
 
         public static final String _ID = "_id";
 
@@ -66,6 +75,8 @@ public abstract class StudentContract {
 
         public static final String SCHOOL_ID = "school_id";
 
+        public static final String PHOTO_PATH = "photo_path";
+
         public static final String CREATE_TABLE = "create table " + TABLE_NAME + "( " +
                 _ID + " INTEGER AUTOINCREMENT PRIMARY KEY " +
                 NAME + " TEXT, " +
@@ -74,15 +85,20 @@ public abstract class StudentContract {
                 FATHER_OR_GUARDIAN_NAME + " TEXT, " +
                 MOTHER_NAME + " TEXT, " +
                 ADDRESS + " TEXT, " +
+                PHOTO_PATH + " TEXT, " +
                 SCHOOL_ID + " INTEGER, " +
                 "FOREIGN KEY( " + SCHOOL_ID + " ) REFERENCES" + SchoolDetails.TABLE_NAME
                 +" (" + SchoolDetails._ID +"));";
+
+        public static final String DROP_TABLE = "drop table " + TABLE_NAME;
     }
 
     public class HealthReport implements BaseColumns {
         // Health Details are linked to each student
 
         public static final String TABLE_NAME = "health_report_table";
+
+        public static final String PATH = "health";
 
         public static final String _ID = "_id";
 
@@ -119,6 +135,8 @@ public abstract class StudentContract {
                 STUDENT_ID + " INTEGER, " +
                 "FOREIGN KEY (" + STUDENT_ID + ") REFERENCES " + StudentDetails.TABLE_NAME +
                 " ( " + StudentDetails._ID + "));";
+
+        public static final String DROP_TABLE = "drop table " + TABLE_NAME;
     }
 
     public class ExtraInformation implements BaseColumns {
@@ -141,5 +159,7 @@ public abstract class StudentContract {
                 HEALTH_REPORT_ID + " INTEGER, " +
                 "FOREIGN KEY (" + HEALTH_REPORT_ID + ") REFERENCES " +
                 HealthReport.TABLE_NAME + "(" + HealthReport._ID + "));";
+
+        public static final String DROP_TABLE = "drop table " + TABLE_NAME;
     }
 }
