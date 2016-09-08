@@ -22,6 +22,10 @@ public abstract class StudentContract {
         // Anganwadi, Pre-school, primary, upper primary, higher secondary, other
         public static final String TYPE = "type";
 
+        public static final String SCHOOL_ANNAPORNA_CODE = "school_id_code";
+
+        public static final String LOCATION_NAME = "location_name";
+
         public static final String NUM_BOYS = "number_boys";
 
         public static final String NUM_GIRLS = "number_girls";
@@ -40,6 +44,8 @@ public abstract class StudentContract {
                 _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 NAME + " TEXT, " +
                 TYPE + " TEXT, " +
+                LOCATION_NAME + " TEXT," +
+                SCHOOL_ANNAPORNA_CODE + " TEXT," +
                 NUM_BOYS + " INTEGER, " +
                 NUM_GIRLS + " INTEGER, " +
                 TOTAL_STUDENT_COUNT + " INTEGER, " +
