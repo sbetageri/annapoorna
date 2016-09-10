@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">annaporna</string>
+    <string name="app_name">ANNAPORNA</string>
+
+    <string name="school_name_hint">School Name</string>
+
+    <string name="school_type">School Type</string>
+
+    <string name="school_location_hint">School Location</string>
+
+    <string name="hm_name_hint">Headmaster Name</string>
+
+    <string name="hm_phone_number_hint">Headmaster Phone Number</string>
+
+    <string name="total_student_count_hint">Total Strength</string>
+
+    <string name="boys_count_hint">Boys Strength</string>
+
+    <string name="girls_count_hint">Girls Strength</string>
+
+    <string name="staff_count_hint">Staff Strength</string>
+
+    <string name="cook_count_hint">Cook Strength</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.admin.annaporna.models;
+package com.example.admin.annaporna.model;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

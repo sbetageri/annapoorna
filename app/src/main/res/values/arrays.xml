@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="school_types">
+        <item>ANGANWADI</item>
+        <item>PRESCHOOL</item>
+        <item>PRIMARY</item>
+        <item>UPPER PRIMARY</item>
+        <item>HIGHER SECONDARY</item>
+        <item>OTHER</item>
+    </string-array>
+</resources>
