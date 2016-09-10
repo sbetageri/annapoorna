@@ -9,15 +9,21 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Created by Admin on 08-09-2016.
  */
 public class StudentProvider extends ContentProvider {
+    private static final String _TAG = "student_provider";
 
     public static final String DATABASE_NAME = "annaporna_school_details";
 
     public static final int DATABASE_VERSION = 1;
+
+    public static final String QUERY_SCHOOL_NAME = "school_name_query";
+
+    public static final String QUERY_SCHOOL_LOCATION = "school_location_query";
 
     private static final String AUTHORITY = StudentContract.AUTHORITY;
 
@@ -29,7 +35,13 @@ public class StudentProvider extends ContentProvider {
 
     private static final String EXTRA = StudentContract.ExtraInformation.PATH;
 
+    private static final String EXISTS = StudentContract.SchoolDetails.EXISTS;
+
     private static UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+    // query :
+    // <auth>/school/exists?<name=? & location=?>
+    private static final int SCHOOL_EXISTS = 90;
 
     // insert : <auth>/school
     // query : gets all schools
@@ -66,6 +78,9 @@ public class StudentProvider extends ContentProvider {
 
     private static void buildUriMatcher() {
         sUriMatcher.addURI(AUTHORITY, SCHOOL, SCHOOL_CODE);
+
+        sUriMatcher.addURI(AUTHORITY, SCHOOL + "/" + EXISTS, SCHOOL_EXISTS);
+
         sUriMatcher.addURI(AUTHORITY, SCHOOL + "/#", SCHOOL_SPECIFIC_CODE);
         sUriMatcher.addURI(AUTHORITY, SCHOOL + "/" + STUDENT, SCHOOL_ALL_STUDENTS_CODE);
 
@@ -110,7 +125,7 @@ public class StudentProvider extends ContentProvider {
         String[] projection = {
                 StudentContract.HealthReport.DATE_OF_EXAMINATION
         };
-        String selection = StudentContract.HealthReport.STUDENT_ID + " ==?";
+        String selection = StudentContract.HealthReport.STUDENT_ID + " == ? ";
         String[] selectionArgs = { studentId };
         cursor = db.query(StudentContract.HealthReport.TABLE_NAME,
                 projection,
@@ -125,7 +140,7 @@ public class StudentProvider extends ContentProvider {
     private Cursor getStudentDetails(SQLiteDatabase db,
                                      String studentId) {
         Cursor cursor = null;
-        String selection = StudentContract.StudentDetails._ID + " ==?";
+        String selection = StudentContract.StudentDetails._ID + " == ? ";
         String[] selectionArgs = { studentId };
         cursor = db.query(StudentContract.StudentDetails.TABLE_NAME,
                 null,
@@ -140,7 +155,7 @@ public class StudentProvider extends ContentProvider {
     private Cursor getHealthDetails(SQLiteDatabase db,
                                     String healthId) {
         Cursor cursor;
-        String selection = StudentContract.HealthReport._ID + " == ?";
+        String selection = StudentContract.HealthReport._ID + " == ? ";
         String[] selectionArgs = { healthId };
         cursor = db.query(StudentContract.HealthReport.TABLE_NAME,
                 null,
@@ -202,7 +217,7 @@ public class StudentProvider extends ContentProvider {
     private Cursor getSchoolDetails(SQLiteDatabase db,
                                     String schoolId) {
         Cursor cursor = null;
-        String selection = StudentContract.SchoolDetails._ID + " == ?";
+        String selection = StudentContract.SchoolDetails._ID + " == ? ";
         String[] selectionArgs = {schoolId};
         cursor = db.query(StudentContract.SchoolDetails.TABLE_NAME,
                 null,
@@ -224,7 +239,7 @@ public class StudentProvider extends ContentProvider {
                 StudentContract.StudentDetails.DATE_OF_BIRTH,
                 StudentContract.StudentDetails.GENDER
         };
-        String selection = StudentContract.StudentDetails.SCHOOL_ID + " ==?";
+        String selection = StudentContract.StudentDetails.SCHOOL_ID + " == ? ";
         String[] selectinArgs = { schoolId };
         cursor = db.query(StudentContract.StudentDetails.TABLE_NAME,
                 projection,
@@ -240,8 +255,8 @@ public class StudentProvider extends ContentProvider {
         Cursor cursor;
         String[] projection = {
                 StudentContract.SchoolDetails._ID,
-                StudentContract.SchoolDetails.NAME,
-                StudentContract.SchoolDetails.TYPE,
+                StudentContract.SchoolDetails.SCHOOL_NAME,
+                StudentContract.SchoolDetails.SCHOOL_TYPE,
                 StudentContract.SchoolDetails.SCHOOL_ANNAPORNA_CODE,
                 StudentContract.SchoolDetails.TOTAL_STUDENT_COUNT
         };
@@ -299,6 +314,23 @@ public class StudentProvider extends ContentProvider {
         }
     }
 
+    private Cursor getSchool(SQLiteDatabase db,
+                             String name,
+                             String location) {
+        Cursor cursor;
+        String selection = StudentContract.SchoolDetails.SCHOOL_NAME + " == ? and " +
+                StudentContract.SchoolDetails.LOCATION_NAME + " == ? ";
+        String[] selectionArgs = {name, location};
+        cursor = db.query(StudentContract.SchoolDetails.TABLE_NAME,
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
+        return cursor;
+    }
+
     @Nullable
     @Override
     public Cursor query(Uri uri,
@@ -307,6 +339,7 @@ public class StudentProvider extends ContentProvider {
                         String[] selectionArgs,
                         String sortOrder) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Log.e(_TAG, uri.toString());
         Cursor cursor = null;
         String schoolId = null;
         String studentId = null;
@@ -315,6 +348,13 @@ public class StudentProvider extends ContentProvider {
 
             case SCHOOL_CODE:
                 cursor = getAllSchoolOverview(db);
+                break;
+
+            case SCHOOL_EXISTS:
+                Log.e(_TAG, "checking if school exists");
+                String name = uri.getQueryParameter(QUERY_SCHOOL_NAME);
+                String location = uri.getQueryParameter(QUERY_SCHOOL_LOCATION);
+                cursor = getSchool(db, name, location);
                 break;
 
             case SCHOOL_SPECIFIC_CODE:

@@ -12,15 +12,17 @@ public abstract class StudentContract {
     public class SchoolDetails implements BaseColumns{
         public static final String TABLE_NAME = "school_details";
 
+        public static final String EXISTS = "exists";
+
         public static final String PATH = "school";
 
         public static final String _ID = "_id";
 
-        public static final String NAME = "name";
+        public static final String SCHOOL_NAME = "name";
 
         // type of school is either
         // Anganwadi, Pre-school, primary, upper primary, higher secondary, other
-        public static final String TYPE = "type";
+        public static final String SCHOOL_TYPE = "type";
 
         public static final String SCHOOL_ANNAPORNA_CODE = "school_id_code";
 
@@ -42,8 +44,8 @@ public abstract class StudentContract {
 
         public static final String CREATE_TABLE = "create table " + TABLE_NAME + "( " +
                 _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                NAME + " TEXT, " +
-                TYPE + " TEXT, " +
+                SCHOOL_NAME + " TEXT, " +
+                SCHOOL_TYPE + " TEXT, " +
                 LOCATION_NAME + " TEXT," +
                 SCHOOL_ANNAPORNA_CODE + " TEXT," +
                 NUM_BOYS + " INTEGER, " +
@@ -85,7 +87,7 @@ public abstract class StudentContract {
         public static final String PHOTO_PATH = "photo_path";
 
         public static final String CREATE_TABLE = "create table " + TABLE_NAME + "( " +
-                _ID + " INTEGER AUTOINCREMENT PRIMARY KEY " +
+                _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 NAME + " TEXT, " +
                 GENDER + " TEXT, " +
                 DATE_OF_BIRTH + " TEXT, " +
@@ -94,7 +96,7 @@ public abstract class StudentContract {
                 ADDRESS + " TEXT, " +
                 PHOTO_PATH + " TEXT, " +
                 SCHOOL_ID + " INTEGER, " +
-                "FOREIGN KEY( " + SCHOOL_ID + " ) REFERENCES" + SchoolDetails.TABLE_NAME
+                "FOREIGN KEY( " + SCHOOL_ID + " ) REFERENCES " + SchoolDetails.TABLE_NAME
                 +" (" + SchoolDetails._ID +"));";
 
         public static final String DROP_TABLE = "drop table " + TABLE_NAME;
