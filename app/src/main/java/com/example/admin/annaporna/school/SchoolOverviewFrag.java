@@ -2,10 +2,12 @@ package com.example.admin.annaporna.school;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +49,15 @@ public class SchoolOverviewFrag extends Fragment {
         SchoolOverviewAdapter adapter = new SchoolOverviewAdapter(getSchoolOverviewCursor());
 
         recyclerView.setAdapter(adapter);
+
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab_add_school);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, SchoolDetailsInputActivity.class);
+                startActivity(intent);
+            }
+        });
         return v;
     }
 

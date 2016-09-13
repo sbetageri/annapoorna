@@ -50,12 +50,13 @@ public class DatabaseService extends IntentService {
         String hmName = details.getString(SchoolDetailsInputActivity.HEADMASTER_NAME);
         String hmNumber = details.getString(SchoolDetailsInputActivity.HEADMASTER_PHONE_NUMBER);
 
-        String numBoys = details.getString(SchoolDetailsInputActivity.NUM_BOYS);
-        String numGirls = details.getString(SchoolDetailsInputActivity.NUM_GIRLS);
-        String numStudents = details.getString(SchoolDetailsInputActivity.TOTAL_STUDENT_COUNT);
+        int numBoys = details.getInt(SchoolDetailsInputActivity.NUM_BOYS);
+        int numGirls = details.getInt(SchoolDetailsInputActivity.NUM_GIRLS);
+        int numStudents = details.getInt(SchoolDetailsInputActivity.TOTAL_STUDENT_COUNT);
+        Log.e(_TAG, "total students : " + numStudents);
 
-        String numStaff = details.getString(SchoolDetailsInputActivity.STAFF_COUNT);
-        String numCook = details.getString(SchoolDetailsInputActivity.COOK_COUNT);
+        int numStaff = details.getInt(SchoolDetailsInputActivity.STAFF_COUNT);
+        int numCook = details.getInt(SchoolDetailsInputActivity.COOK_COUNT);
 
         values.put(StudentContract.SchoolDetails.SCHOOL_NAME, schoolName);
         values.put(StudentContract.SchoolDetails.SCHOOL_TYPE, schoolType);

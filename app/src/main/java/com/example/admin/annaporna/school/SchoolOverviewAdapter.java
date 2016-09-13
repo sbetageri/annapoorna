@@ -34,7 +34,7 @@ public class SchoolOverviewAdapter extends RecyclerView.Adapter<SchoolOverviewAd
 
         public void setOverviewContent(Cursor cursor) {
             mName.setText(cursor.getString(cursor.getColumnIndex(StudentContract.SchoolDetails.SCHOOL_NAME)));
-            mStrength.setText(cursor.getString(cursor.getColumnIndex(StudentContract.SchoolDetails.TOTAL_STUDENT_COUNT)));
+            mStrength.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex(StudentContract.SchoolDetails.TOTAL_STUDENT_COUNT))));
             Log.e(_TAG, mName.getText().toString());
             Log.e(_TAG, mStrength.getText().toString());
         }

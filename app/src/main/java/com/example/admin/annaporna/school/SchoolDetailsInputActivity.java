@@ -1,6 +1,5 @@
 package com.example.admin.annaporna.school;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
@@ -104,6 +103,7 @@ public class SchoolDetailsInputActivity extends AppCompatActivity {
             intent.putExtra(DatabaseService.BUNDLE_TYPE, DatabaseService.SCHOOL_DETAILS);
             intent.putExtra(DatabaseService.BUNDLE_DATA, schoolDetails);
             startService(intent);
+            finish();
         }
     }
 
@@ -132,7 +132,7 @@ public class SchoolDetailsInputActivity extends AppCompatActivity {
         mStaffCount = (TextInputEditText) findViewById(R.id.total_staff_count);
         mCookCount = (TextInputEditText) findViewById(R.id.cook_count);
 
-        mFab = (FloatingActionButton) findViewById(R.id.fab_done_action);
+        mFab = (FloatingActionButton) findViewById(R.id.fab_school_added);
         mFab.setOnClickListener(new FABClickListener());
     }
 
