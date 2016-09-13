@@ -10,8 +10,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.admin.annaporna.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+    <!--
+    <android.support.design.widget.TabLayout
+        android:id="@+id/overview_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v4.view.ViewPager
+        android:layout_below="@id/overview_tab_layout"
+        android:id="@+id/overview_frag_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+        -->
+
+    <LinearLayout
+        android:id="@+id/frag_container"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+    </LinearLayout>
+
 </RelativeLayout>

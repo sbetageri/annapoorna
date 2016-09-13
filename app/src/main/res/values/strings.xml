@@ -20,4 +20,7 @@
     <string name="staff_count_hint">Staff Strength</string>
 
     <string name="cook_count_hint">Cook Strength</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
