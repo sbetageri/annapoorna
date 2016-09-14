@@ -12,6 +12,14 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_height="match_parent"/>
 
+    <TextView
+        android:id="@+id/empty_school_list_textview"
+        android:text="@string/empty_school_list"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_school"
         style="@style/FloatingActionButtonNormalStyle"

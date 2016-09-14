@@ -18,8 +18,9 @@ public class SchoolOverviewAdapter extends RecyclerView.Adapter<SchoolOverviewAd
     public static final String _TAG = "school_overview_adapter";
     Cursor mCursor;
 
-    public SchoolOverviewAdapter(Cursor cursor) {
+    public void swapCursor(Cursor cursor) {
         mCursor = cursor;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
