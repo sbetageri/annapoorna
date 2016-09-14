@@ -18,5 +18,10 @@
         <item name="android:layout_margin">@dimen/fab_layout_margin</item>
         <item name="android:layout_gravity">bottom|right|end</item>
     </style>
+    
+    <!-- Text Error style -->
+    <style name="InputTextErrorStyle">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
 
 </resources>

@@ -24,7 +24,6 @@ import com.example.admin.annaporna.utils.ModelUtils;
  */
 public class SchoolOverviewFrag extends Fragment {
     private Context mContext;
-    String num;
 
     public Cursor getSchoolOverviewCursor() {
         ContentResolver resolver = mContext.getContentResolver();
@@ -54,6 +53,7 @@ public class SchoolOverviewFrag extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // verify text
                 Intent intent = new Intent(mContext, SchoolDetailsInputActivity.class);
                 startActivity(intent);
             }
