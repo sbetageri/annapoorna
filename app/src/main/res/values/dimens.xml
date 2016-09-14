@@ -6,4 +6,16 @@
     <!-- FAB layout dimensions -->
     <dimen name="fab_layout_margin">16dp</dimen>
     <dimen name="fab_border_width">0dp</dimen>
+
+    <!-- RecyclerView layout dimensions -->
+    <dimen name="recycler_view_margin">16dp</dimen>
+
+    <!-- recyclerview item layout dimensions -->
+    <dimen name="recycler_view_item_margin">16dp</dimen>
+
+    <!-- Text dimensions -->
+    <dimen name="textTitle">20sp</dimen>
+    <dimen name="textSubHeadingSize">16sp</dimen>
+    <dimen name="textBodySize">14sp</dimen>
+    <dimen name="textCaption">12sp</dimen>
 </resources>

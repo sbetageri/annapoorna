@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- RecyclerView linear list style -->
+    <style name="RecyclerViewStyle">
+        <item name="android:layout_marginLeft">@dimen/recycler_view_margin</item>
+    </style>
+    
+    <!-- Floating action button style -->
+    <style name="FloatingActionButtonNormalStyle">
+        <item name="android:layout_margin">@dimen/fab_layout_margin</item>
+        <item name="android:layout_gravity">bottom|right|end</item>
+    </style>
+
 </resources>

@@ -205,14 +205,13 @@
     </ScrollView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_school_added"
+        style="@style/FloatingActionButtonNormalStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:borderWidth="@dimen/fab_border_width"
-        app:fabSize="normal"
         android:src="@drawable/ic_done"
-        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal"
+        app:borderWidth="@dimen/fab_border_width"
         app:layout_anchorGravity="bottom|end|right"
-        android:layout_margin="@dimen/fab_layout_margin"
-        android:layout_gravity="bottom|right|end"/>
+        app:backgroundTint="@color/colorAccent"/>
 </android.support.design.widget.CoordinatorLayout>
