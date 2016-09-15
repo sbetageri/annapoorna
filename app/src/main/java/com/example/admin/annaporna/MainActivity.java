@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.admin.annaporna.school.SchoolOverviewFrag;
+import com.example.admin.annaporna.school.SchoolListFrag;
 
 public class MainActivity extends AppCompatActivity {
     private static final String _TAG = "main_activity";
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.frag_container, new SchoolOverviewFrag(), null);
+        ft.add(R.id.frag_container, new SchoolListFrag(), null);
         ft.commit();
     }
 }

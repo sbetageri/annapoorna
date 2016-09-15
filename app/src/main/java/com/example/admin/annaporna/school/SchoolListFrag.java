@@ -1,11 +1,9 @@
 package com.example.admin.annaporna.school;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -27,9 +25,9 @@ import com.example.admin.annaporna.utils.ModelUtils;
 /**
  * Created by Admin on 13-09-2016.
  */
-public class SchoolOverviewFrag extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class SchoolListFrag extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private Context mContext;
-    private SchoolOverviewAdapter mAdapter;
+    private SchoolListAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private TextView mEmptyList;
     private SchoolContentObserver mObserver;
@@ -47,7 +45,7 @@ public class SchoolOverviewFrag extends Fragment implements LoaderManager.Loader
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
             Log.e(_TAG, "change has occurred");
-            getLoaderManager().restartLoader(CURSOR_LOADER_TAG, null, SchoolOverviewFrag.this);
+            getLoaderManager().restartLoader(CURSOR_LOADER_TAG, null, SchoolListFrag.this);
         }
     }
 
@@ -60,7 +58,7 @@ public class SchoolOverviewFrag extends Fragment implements LoaderManager.Loader
         /*
         int numSchoolRecords = ModelUtils.getNumSchoolRecords(mContext);
         if(numSchoolRecords != mAdapter.getItemCount()) {
-            getLoaderManager().restartLoader(CURSOR_LOADER_TAG, null, SchoolOverviewFrag.this);
+            getLoaderManager().restartLoader(CURSOR_LOADER_TAG, null, SchoolListFrag.this);
         }
         */
         getLoaderManager().restartLoader(CURSOR_LOADER_TAG, null, this);
@@ -77,7 +75,7 @@ public class SchoolOverviewFrag extends Fragment implements LoaderManager.Loader
         mRecyclerView = (RecyclerView) v.findViewById(R.id.list_school_overview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
-        mAdapter = new SchoolOverviewAdapter(getContext());
+        mAdapter = new SchoolListAdapter(getContext());
 
         getLoaderManager().initLoader(CURSOR_LOADER_TAG, null, this);
 

@@ -15,12 +15,12 @@ import com.example.admin.annaporna.model.StudentContract;
 /**
  * Created by Admin on 13-09-2016.
  */
-public class SchoolOverviewAdapter extends RecyclerView.Adapter<SchoolOverviewAdapter.ViewHolder> {
+public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.ViewHolder> {
     public static final String _TAG = "school_overview_adapter";
     Cursor mCursor;
     Context mContext;
 
-    public SchoolOverviewAdapter(Context context) {
+    public SchoolListAdapter(Context context) {
         mContext = context;
     }
 
