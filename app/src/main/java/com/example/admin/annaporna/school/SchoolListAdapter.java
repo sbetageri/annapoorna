@@ -1,15 +1,18 @@
 package com.example.admin.annaporna.school;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.admin.annaporna.R;
+import com.example.admin.annaporna.SchoolDetailsActivity;
 import com.example.admin.annaporna.model.StudentContract;
 
 /**
@@ -32,13 +35,28 @@ public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView mName;
         TextView mStrength;
+        LinearLayout mLayout;
 
         public ViewHolder(View v) {
             super(v);
+            mLayout = (LinearLayout) v.findViewById(R.id.school_overview_list_element);
             mName = (TextView) v.findViewById(R.id.overview_school_name);
             mStrength = (TextView) v.findViewById(R.id.overview_school_strength);
         }
+    }
 
+    public void setClickBehaviour(ViewHolder holder, final Cursor cursor) {
+        holder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String schoolId = cursor.getString(cursor.getColumnIndex(StudentContract.SchoolDetails._ID));
+                String schoolName = cursor.getString(cursor.getColumnIndex(StudentContract.SchoolDetails.SCHOOL_NAME));
+                Intent intent = new Intent(mContext, SchoolDetailsActivity.class);
+                intent.putExtra(SchoolDetailsActivity.SCHOOL_ID, schoolId);
+                intent.putExtra(SchoolDetailsActivity.SCHOOL_NAME, schoolName);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     public void setOverviewContent(ViewHolder vh, Cursor cursor) {
@@ -81,5 +99,6 @@ public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         mCursor.moveToPosition(position);
         setOverviewContent(holder, mCursor);
+        setClickBehaviour(holder, mCursor);
     }
 }

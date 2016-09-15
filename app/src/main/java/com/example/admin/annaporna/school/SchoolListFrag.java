@@ -30,7 +30,6 @@ public class SchoolListFrag extends Fragment implements LoaderManager.LoaderCall
     private SchoolListAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private TextView mEmptyList;
-    private SchoolContentObserver mObserver;
 
     private static final String _TAG = "school_overview_frag";
 
@@ -69,8 +68,6 @@ public class SchoolListFrag extends Fragment implements LoaderManager.LoaderCall
         View v = inflater.inflate(R.layout.fragment_school_overview, container, false);
 
         mEmptyList = (TextView)v.findViewById(R.id.empty_school_list_textview);
-
-        mObserver = new SchoolContentObserver(new Handler());
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.list_school_overview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
