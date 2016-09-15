@@ -216,6 +216,7 @@ public class StudentProvider extends ContentProvider {
 
     private Cursor getSchoolDetails(SQLiteDatabase db,
                                     String schoolId) {
+        Log.e(_TAG, "School id : " + schoolId);
         Cursor cursor = null;
         String selection = StudentContract.SchoolDetails._ID + " == ? ";
         String[] selectionArgs = {schoolId};
@@ -226,6 +227,7 @@ public class StudentProvider extends ContentProvider {
                 null,
                 null,
                 null);
+        Log.e(_TAG, "cursor size : " + Integer.toString(cursor.getCount()));
         return cursor;
     }
 

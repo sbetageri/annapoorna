@@ -15,9 +15,18 @@
 
     <dimen name="recycler_element_top_padding">8dp</dimen>
 
+    <!-- CardView dimensions -->
+    <dimen name="cardview_corner_radius">4dp</dimen>
+    <dimen name="cardview_elevation">8dp</dimen>
+    <dimen name="cardview_top_padding">16dp</dimen>
+    <dimen name="cardview_bottom_padding">16dp</dimen>
+    <dimen name="cardview_padding_left">16dp</dimen>
+    <dimen name="cardview_padding">8dp</dimen>
+
+
     <!-- Text dimensions -->
-    <dimen name="textTitle">20sp</dimen>
-    <dimen name="textSubHeadingSize">16sp</dimen>
-    <dimen name="textBodySize">14sp</dimen>
-    <dimen name="textCaption">12sp</dimen>
+    <dimen name="textTitle">20dp</dimen>
+    <dimen name="textSubHeadingSize">16dp</dimen>
+    <dimen name="textBodySize">14dp</dimen>
+    <dimen name="textCaption">12dp</dimen>
 </resources>

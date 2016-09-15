@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.admin.annaporna.R;
-import com.example.admin.annaporna.utils.ModelUtils;
+import com.example.admin.annaporna.model.UriHelper;
 
 /**
  * Created by Admin on 13-09-2016.
@@ -35,19 +35,6 @@ public class SchoolListFrag extends Fragment implements LoaderManager.LoaderCall
 
     private static final int CURSOR_LOADER_TAG = 9;
 
-    private class SchoolContentObserver extends ContentObserver {
-        public SchoolContentObserver(Handler handler) {
-            super(handler);
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
-            Log.e(_TAG, "change has occurred");
-            getLoaderManager().restartLoader(CURSOR_LOADER_TAG, null, SchoolListFrag.this);
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -55,7 +42,7 @@ public class SchoolListFrag extends Fragment implements LoaderManager.LoaderCall
         // there has to be a better way to check the size of school records
         // a call to restartLoader?
         /*
-        int numSchoolRecords = ModelUtils.getNumSchoolRecords(mContext);
+        int numSchoolRecords = UriHelper.getNumSchoolRecords(mContext);
         if(numSchoolRecords != mAdapter.getItemCount()) {
             getLoaderManager().restartLoader(CURSOR_LOADER_TAG, null, SchoolListFrag.this);
         }
@@ -104,7 +91,7 @@ public class SchoolListFrag extends Fragment implements LoaderManager.LoaderCall
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader cursorLoader = new CursorLoader(mContext,
-                ModelUtils.getAllSchoolUri(),
+                UriHelper.getAllSchoolUri(),
                 null,
                 null,
                 null,
