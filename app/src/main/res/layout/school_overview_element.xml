@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -10,18 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:textSize="@dimen/textSubHeadingSize"
+        tools:text="trial"
         android:textStyle="bold"/>
 
     <LinearLayout
+        android:paddingTop="@dimen/recycler_element_top_padding"
         android:layout_width="match_parent"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_height="0dp"
         android:layout_marginTop="3dp"
         android:layout_weight="1">
 
         <TextView
             android:id="@+id/overview_school_annaporna_code"
-            android:text="SAI"
+            android:text="SAI CODE"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"

@@ -54,10 +54,16 @@ public class SchoolOverviewFrag extends Fragment implements LoaderManager.Loader
     @Override
     public void onResume() {
         super.onResume();
+
+        // there has to be a better way to check the size of school records
+        // a call to restartLoader?
+        /*
         int numSchoolRecords = ModelUtils.getNumSchoolRecords(mContext);
         if(numSchoolRecords != mAdapter.getItemCount()) {
             getLoaderManager().restartLoader(CURSOR_LOADER_TAG, null, SchoolOverviewFrag.this);
         }
+        */
+        getLoaderManager().restartLoader(CURSOR_LOADER_TAG, null, this);
     }
 
     @Override
@@ -71,7 +77,7 @@ public class SchoolOverviewFrag extends Fragment implements LoaderManager.Loader
         mRecyclerView = (RecyclerView) v.findViewById(R.id.list_school_overview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
-        mAdapter = new SchoolOverviewAdapter();
+        mAdapter = new SchoolOverviewAdapter(getContext());
 
         getLoaderManager().initLoader(CURSOR_LOADER_TAG, null, this);
 

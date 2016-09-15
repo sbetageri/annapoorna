@@ -30,4 +30,7 @@
 
     <!-- empty school list -->
     <string name="empty_school_list">Sai Ram. \nNo schools data found.</string>
+
+    <string name="kids">Kids</string>
+    <string name="kid">Kid</string>
 </resources>

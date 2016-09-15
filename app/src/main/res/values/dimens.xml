@@ -13,6 +13,8 @@
     <!-- recyclerview item layout dimensions -->
     <dimen name="recycler_view_item_margin">16dp</dimen>
 
+    <dimen name="recycler_element_top_padding">8dp</dimen>
+
     <!-- Text dimensions -->
     <dimen name="textTitle">20sp</dimen>
     <dimen name="textSubHeadingSize">16sp</dimen>

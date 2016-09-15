@@ -1,5 +1,6 @@
 package com.example.admin.annaporna.school;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +18,11 @@ import com.example.admin.annaporna.model.StudentContract;
 public class SchoolOverviewAdapter extends RecyclerView.Adapter<SchoolOverviewAdapter.ViewHolder> {
     public static final String _TAG = "school_overview_adapter";
     Cursor mCursor;
+    Context mContext;
+
+    public SchoolOverviewAdapter(Context context) {
+        mContext = context;
+    }
 
     public void swapCursor(Cursor cursor) {
         mCursor = cursor;
@@ -33,12 +39,21 @@ public class SchoolOverviewAdapter extends RecyclerView.Adapter<SchoolOverviewAd
             mStrength = (TextView) v.findViewById(R.id.overview_school_strength);
         }
 
-        public void setOverviewContent(Cursor cursor) {
-            mName.setText(cursor.getString(cursor.getColumnIndex(StudentContract.SchoolDetails.SCHOOL_NAME)));
-            mStrength.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex(StudentContract.SchoolDetails.TOTAL_STUDENT_COUNT))));
-            Log.e(_TAG, mName.getText().toString());
-            Log.e(_TAG, mStrength.getText().toString());
+    }
+
+    public void setOverviewContent(ViewHolder vh, Cursor cursor) {
+        int kidStrength = cursor.getInt(cursor.getColumnIndex(StudentContract.SchoolDetails.TOTAL_STUDENT_COUNT));
+        String strength = Integer.toString(kidStrength);
+        strength += " ";
+        if(kidStrength == 1) {
+            strength += mContext.getString(R.string.kid);
+        } else {
+            strength += mContext.getString(R.string.kids);
         }
+        vh.mName.setText(cursor.getString(cursor.getColumnIndex(StudentContract.SchoolDetails.SCHOOL_NAME)));
+        vh.mStrength.setText(strength);
+        Log.e(_TAG, vh.mName.getText().toString());
+        Log.e(_TAG, vh.mStrength.getText().toString());
     }
 
     @Override
@@ -65,6 +80,6 @@ public class SchoolOverviewAdapter extends RecyclerView.Adapter<SchoolOverviewAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         mCursor.moveToPosition(position);
-        holder.setOverviewContent(mCursor);
+        setOverviewContent(holder, mCursor);
     }
 }
