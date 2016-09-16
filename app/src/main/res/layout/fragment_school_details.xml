@@ -5,6 +5,10 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <!-- TODO
+        Add gridlayout for student and staff count
+    -->
+
 
     <android.support.v7.widget.CardView
         android:id="@+id/school_card"

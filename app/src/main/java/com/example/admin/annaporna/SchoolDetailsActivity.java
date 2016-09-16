@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.admin.annaporna.school.SchoolDetailsFrag;
+import com.example.admin.annaporna.student.StudentListFrag;
 
 /*
     TODO
@@ -26,8 +27,12 @@ public class SchoolDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("SAI RAM");
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment fragment = new SchoolDetailsFrag();
-        fragment.setArguments(getIntent().getExtras());
+        Fragment fragment = new StudentListFrag();
+
+        // the args hold the schoolID
+        Bundle args = getIntent().getExtras();
+        fragment.setArguments(args);
+
         ft.add(R.id.placeholder, fragment, null);
         ft.commit();
     }

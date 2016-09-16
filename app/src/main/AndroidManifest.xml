@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".SchoolDetailsActivity">
         </activity>
+        <activity android:name=".student.StudentDetailInputActivity">
+        </activity>
     </application>
 
 </manifest>

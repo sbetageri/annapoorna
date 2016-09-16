@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Annapoorna</string>
-    
+
     <string name="school">School</string>
-    
+
     <string name="headmaster">Headmaster</string>
-    
+
     <string name="students">Students</string>
-    
+
     <string name="staff">Staff</string>
-    
+
     <string name="name">Name</string>
 
     <string name="school_location">Location</string>
@@ -16,7 +16,7 @@
     <string name="type">Type</string>
 
     <string name="school_code">Code</string>
-    
+
     <string name="phone_number">Phone Number</string>
 
     <string name="num_boys">Boys</string>
