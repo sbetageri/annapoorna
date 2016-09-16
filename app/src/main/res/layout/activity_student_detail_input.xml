@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,4 +11,159 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.admin.annaporna.student.StudentDetailInputActivity">
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/student_name_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/InputTextErrorStyle">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/student_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/student_name_hint"
+            android:inputType="textImeMultiLine"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/gender_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/student_name_input_layout"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_btn_boys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onGenderBtnClick"
+            android:text="@string/male"/>
+
+        <RadioButton
+            android:id="@+id/radio_btn_girls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onGenderBtnClick"
+            android:text="@string/female"/>
+    </RadioGroup>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/gender_radio_group"
+        android:id="@+id/dob_input_layout"
+        android:layout_alignParentStart="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/InputTextErrorStyle">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/date_dob_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_dob"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--
+    <TextView
+        android:id="@+id/first_slash"
+        android:layout_toRightOf="@+id/date_day_input_layout"
+        android:layout_alignBottom="@id/date_day_input_layout"
+        android:layout_alignTop="@id/date_day_input_layout"
+        android:layout_below="@+id/radio_gender"
+        android:gravity="bottom"
+        android:textSize="@dimen/textTitle"
+        android:text="/"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/dob_placeholder"
+        android:layout_toRightOf="@id/date_day_input_layout"
+        android:id="@+id/date_month_input_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/InputTextErrorStyle">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/date_month_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/month"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/dob_placeholder"
+        android:layout_toRightOf="@id/date_month_input_layout"
+        android:id="@+id/date_year_input_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/InputTextErrorStyle">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/date_year_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/year"/>
+    </android.support.design.widget.TextInputLayout>
+    -->
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/dob_input_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/father_guardian_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/InputTextErrorStyle">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/father_guardian_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/father_guardian_hint"
+            android:inputType="textImeMultiLine"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/father_guardian_input_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/mother_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/InputTextErrorStyle">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/mother_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/mother_hint"
+            android:inputType="textImeMultiLine"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/mother_input_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/student_address_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/InputTextErrorStyle">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/student_address_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/student_address"
+            android:inputType="textImeMultiLine"/>
+    </android.support.design.widget.TextInputLayout>
 </RelativeLayout>

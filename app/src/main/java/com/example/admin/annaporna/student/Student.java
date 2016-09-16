@@ -7,7 +7,6 @@ public class Student {
     public String mId;
     public String mName;
     public String mGender;
-
     public String mDob;
 
     public String mFatherGuardianName;

@@ -11,5 +11,6 @@ public class StudentDetailInputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_detail_input);
+        getSupportActionBar().setTitle(getString(R.string.student_details_input_title));
     }
 }

@@ -53,6 +53,8 @@
 
     <string name="invalid_input_toast_msg">Please verify input and try again.</string>
 
+    <string name="student_name_hint">Student Name</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -62,5 +64,21 @@
     <string name="kids">Kids</string>
     <string name="kid">Kid</string>
 
-    <string name="main_activity_title">SCHOOLS</string>
+    <string name="main_activity_title">Schools</string>
+
+    <string name="student_details_input_title">Student Details</string>
+
+    <string name="male">Male</string>
+
+    <string name="female">Female</string>
+
+    <string name="day">DD</string>
+
+    <string name="enter_dob">Enter Date Of Birth(DD/MM/YYYY)</string>
+
+    <string name="father_guardian_hint">Father/Guardian\'s Name</string>
+
+    <string name="mother_hint">Mother\'s Name</string>
+
+    <string name="student_address">Address</string>
 </resources>
