@@ -9,10 +9,10 @@ public abstract class StudentContract {
 
     public static final String AUTHORITY = "com.example.sai.annaporna.provider";
 
+    public static final String EXISTS = "exists";
+
     public class SchoolDetails implements BaseColumns{
         public static final String TABLE_NAME = "school_details";
-
-        public static final String EXISTS = "exists";
 
         public static final String PATH = "school";
 

@@ -5,6 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_student_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:visibility="gone"
+        android:text="@string/empty_student_list"
+        android:textSize="@dimen/textSubHeadingSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_student"
         style="@style/FloatingActionButtonNormalStyle"

@@ -28,4 +28,42 @@ public class UriHelper {
         builder.appendPath(schoolId);
         return builder.build();
     }
+
+    public static Uri doesStudentExistUri(String name, String dob, String fatherGuardianName) {
+        Uri.Builder builder = buildBaseUri().buildUpon();
+        builder.appendPath(StudentContract.StudentDetails.PATH);
+        builder.appendPath(StudentContract.EXISTS);
+        builder.appendQueryParameter(StudentProvider.QUERY_STUDENT_NAME, name);
+        builder.appendQueryParameter(StudentProvider.QUERY_STUDENT_DOB, dob);
+        builder.appendQueryParameter(StudentProvider.QUERY_STUDENT_FATHER_GUARDIAN_NAME, fatherGuardianName);
+        return builder.build();
+    }
+
+    public static Uri insertSchoolUri() {
+        Uri.Builder builder = buildBaseUri().buildUpon();
+        builder.appendPath(StudentContract.SchoolDetails.PATH);
+        return builder.build();
+    }
+
+    public static Uri insertStudentUri() {
+        Uri.Builder builder = buildBaseUri().buildUpon();
+        builder.appendPath(StudentContract.StudentDetails.PATH);
+        return builder.build();
+    }
+
+    public static Uri buildBaseUri() {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme(ContentResolver.SCHEME_CONTENT);
+        builder.authority(StudentContract.AUTHORITY);
+        return builder.build();
+    }
+
+    public static Uri doesSchoolExistUri(String name, String location) {
+        Uri.Builder builder = buildBaseUri().buildUpon();
+        builder.appendPath(StudentContract.StudentDetails.PATH);
+        builder.appendPath(StudentContract.EXISTS);
+        builder.appendQueryParameter(StudentProvider.QUERY_SCHOOL_NAME, name);
+        builder.appendQueryParameter(StudentProvider.QUERY_SCHOOL_LOCATION, location);
+        return builder.build();
+    }
 }

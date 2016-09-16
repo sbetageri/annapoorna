@@ -25,6 +25,12 @@ public class StudentProvider extends ContentProvider {
 
     public static final String QUERY_SCHOOL_LOCATION = "school_location_query";
 
+    public static final String QUERY_STUDENT_NAME = "student_name";
+
+    public static final String QUERY_STUDENT_DOB = "student_dob";
+
+    public static final String QUERY_STUDENT_FATHER_GUARDIAN_NAME = "father_guardian_name";
+
     private static final String AUTHORITY = StudentContract.AUTHORITY;
 
     private static final String SCHOOL = StudentContract.SchoolDetails.PATH;
@@ -35,13 +41,17 @@ public class StudentProvider extends ContentProvider {
 
     private static final String EXTRA = StudentContract.ExtraInformation.PATH;
 
-    private static final String EXISTS = StudentContract.SchoolDetails.EXISTS;
+    private static final String EXISTS = StudentContract.EXISTS;
 
     private static UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     // query :
     // <auth>/school/exists?<name=? & location=?>
     private static final int SCHOOL_EXISTS = 90;
+
+    // query :
+    // <auth>/school/exists?<name=? & dob=? and father_guardian_name=?>
+    private static final int STUDENT_EXISTS = 91;
 
     // insert : <auth>/school
     // query : gets all schools
@@ -85,6 +95,7 @@ public class StudentProvider extends ContentProvider {
         sUriMatcher.addURI(AUTHORITY, SCHOOL + "/" + STUDENT, SCHOOL_ALL_STUDENTS_CODE);
 
         sUriMatcher.addURI(AUTHORITY, STUDENT, STUDENT_CODE);
+        sUriMatcher.addURI(AUTHORITY, STUDENT + "/" + EXISTS, STUDENT_EXISTS);
         sUriMatcher.addURI(AUTHORITY, STUDENT + "/#", STUDENT_SPECIFIC_CODE);
         sUriMatcher.addURI(AUTHORITY, STUDENT + "/" + HEALTH, STUDENT_HEALTH_CODE);
 
@@ -333,6 +344,28 @@ public class StudentProvider extends ContentProvider {
         return cursor;
     }
 
+    private Cursor getStudent(SQLiteDatabase db,
+                              String name,
+                              String dob,
+                              String fatherGuardianName) {
+        String selection = StudentContract.StudentDetails.NAME + " == ? and " +
+                StudentContract.StudentDetails.DATE_OF_BIRTH + " == ? and " +
+                StudentContract.StudentDetails.FATHER_OR_GUARDIAN_NAME + " == ? ";
+        String[] selectionArgs = {
+                name,
+                dob,
+                fatherGuardianName
+        };
+        Cursor cursor = db.query(StudentContract.StudentDetails.TABLE_NAME,
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
+        return cursor;
+    }
+
     @Nullable
     @Override
     public Cursor query(Uri uri,
@@ -341,7 +374,7 @@ public class StudentProvider extends ContentProvider {
                         String[] selectionArgs,
                         String sortOrder) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        Log.e(_TAG, uri.toString());
+        Log.e(_TAG, "query : " + uri.toString());
         Cursor cursor = null;
         String schoolId = null;
         String studentId = null;
@@ -371,6 +404,14 @@ public class StudentProvider extends ContentProvider {
 
             case STUDENT_CODE:
                 cursor = getAllStudentOverview(db);
+                break;
+
+            case STUDENT_EXISTS:
+                String studentName = uri.getQueryParameter(QUERY_STUDENT_NAME);
+                String dob = uri.getQueryParameter(QUERY_STUDENT_DOB);
+                String fatherGuardianName = uri.getQueryParameter(QUERY_STUDENT_FATHER_GUARDIAN_NAME);
+                Log.e(_TAG, "checking if student " + studentName + " exists");
+                cursor = getStudent(db, studentName, dob, fatherGuardianName);
                 break;
 
             case STUDENT_SPECIFIC_CODE:
@@ -420,6 +461,7 @@ public class StudentProvider extends ContentProvider {
                 rowId = db.insert(StudentContract.StudentDetails.TABLE_NAME,
                         null,
                         contentValues);
+                Log.e(_TAG, "inserted row : " + Long.toString(rowId));
                 break;
 
             case HEALTH_CODE:

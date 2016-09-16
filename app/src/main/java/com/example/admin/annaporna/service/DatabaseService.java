@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import com.example.admin.annaporna.model.StudentContract;
 import com.example.admin.annaporna.model.StudentProvider;
+import com.example.admin.annaporna.model.UriHelper;
 import com.example.admin.annaporna.school.SchoolDetailsInputActivity;
 
 import java.util.Set;
@@ -22,8 +22,12 @@ import java.util.Set;
 public class DatabaseService extends IntentService {
     private static final String _TAG = "database_service";
 
-    public static final String BUNDLE_TYPE = "bundle_type";
-    public static final String BUNDLE_DATA = "bundle_data";
+    // DATA_TYPE denotes whether student, school or health details need
+    // to be pushed to the db
+    public static final String DATA_TYPE = "bundle_type";
+
+    // CONTENT_VALUE is the tag to get the bundle with the respective data
+    public static final String CONTENT_VALUE = "bundle_data";
 
     public static final int NO_DETAILS = 100;
     public static final int SCHOOL_DETAILS = 101;
@@ -76,50 +80,64 @@ public class DatabaseService extends IntentService {
         return values;
     }
 
-    private boolean isSchoolPresentInDb(ContentResolver resolver, Bundle data) {
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("content");
-        builder.authority(StudentContract.AUTHORITY);
-        builder.appendPath(StudentContract.SchoolDetails.PATH);
-        builder.appendPath(StudentContract.SchoolDetails.EXISTS);
+    private boolean isSchoolPresentInDb(ContentResolver resolver, ContentValues data) {
+        String name = data.getAsString(SchoolDetailsInputActivity.SCHOOL_NAME);
+        String location = data.getAsString(SchoolDetailsInputActivity.LOCATION_NAME);
 
-        String name = data.getString(SchoolDetailsInputActivity.SCHOOL_NAME);
-        builder.appendQueryParameter(StudentProvider.QUERY_SCHOOL_NAME, name);
+        Uri uri = UriHelper.doesSchoolExistUri(name, location);
 
-        String location = data.getString(SchoolDetailsInputActivity.LOCATION_NAME);
-        builder.appendQueryParameter(StudentProvider.QUERY_SCHOOL_LOCATION, location);
-
-        Cursor cursor = resolver.query(builder.build(), null, null, null, null);
+        Cursor cursor = resolver.query(uri, null, null, null, null);
         if(cursor.getCount() > 0) {
             return true;
         }
         return false;
     }
 
-    private void pushSchoolDetailsToDb(ContentResolver resolver, Bundle details) {
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("content");
-        builder.authority(StudentContract.AUTHORITY);
-        builder.appendPath(StudentContract.SchoolDetails.PATH);
-        ContentValues values = parseSchoolBundleToCV(details);
-        resolver.insert(builder.build(), values);
+    private void pushSchoolDetailsToDb(ContentResolver resolver, ContentValues details) {
+        Uri uri = UriHelper.insertSchoolUri();
+        resolver.insert(uri, details);
+    }
+
+    private boolean isStudentPresentInDb(ContentResolver resolver, ContentValues data) {
+        String name = data.getAsString(StudentContract.StudentDetails.NAME);
+        String dob = data.getAsString(StudentContract.StudentDetails.DATE_OF_BIRTH);
+        String fatherGuardianName = data.getAsString(StudentContract.StudentDetails.FATHER_OR_GUARDIAN_NAME);
+        Uri uri = UriHelper.doesStudentExistUri(name, dob, fatherGuardianName);
+        Cursor cursor = resolver.query(uri, null, null, null, null);
+        if(cursor != null && cursor.getCount() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    private void pushStudentDetailsToDb(ContentResolver resolver, ContentValues data) {
+        Log.e(_TAG, "pushing to db");
+        Uri uri = UriHelper.insertStudentUri();
+        resolver.insert(uri, data);
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         ContentResolver resolver = getContentResolver();
-        int bundleType = intent.getIntExtra(BUNDLE_TYPE, NO_DETAILS);
-        Bundle data = intent.getBundleExtra(BUNDLE_DATA);
+        int bundleType = intent.getIntExtra(DATA_TYPE, NO_DETAILS);
+        ContentValues data = intent.getParcelableExtra(CONTENT_VALUE);
         switch (bundleType) {
             case SCHOOL_DETAILS:
                 Log.e(_TAG, "school_details");
-                logBundle(data);
                 if( !isSchoolPresentInDb(resolver, data)) {
                     pushSchoolDetailsToDb(resolver, data);
                 } else {
+                    Log.e(_TAG, "school already exists");
+                    // TODO
                     // display toast informing user that school exists
                 }
                 break;
+
+            case STUDENT_DETAILS:
+                Log.e(_TAG, "student_details");
+                if(!isStudentPresentInDb(resolver, data)) {
+                    pushStudentDetailsToDb(resolver, data);
+                }
 
             case NO_DETAILS:
                 break;

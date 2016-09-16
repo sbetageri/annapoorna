@@ -59,7 +59,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- empty school list -->
-    <string name="empty_school_list">Sai Ram. \nNo schools data found.</string>
+    <string name="empty_school_list">Sai Ram. \nNo school data found.</string>
 
     <string name="kids">Kids</string>
     <string name="kid">Kid</string>
@@ -81,4 +81,10 @@
     <string name="mother_hint">Mother\'s Name</string>
 
     <string name="student_address">Address</string>
+
+    <string name="empty_student_list">Sai Ram \nNo student data found.</string>
+
+    <string name="error_gender">Please select a gender</string>
+
+    <string name="date_error">Required DD/MM/YYYY</string>
 </resources>
