@@ -20,6 +20,14 @@ public class UriHelper {
         return builder.build();
     }
 
+    public static Uri getAllStudentsFromSchool(String schoolId) {
+        Uri.Builder builder = buildBaseUri().buildUpon();
+        builder.appendPath(StudentContract.SchoolDetails.PATH);
+        builder.appendPath(StudentContract.StudentDetails.PATH);
+        builder.appendQueryParameter(StudentProvider.QUERY_STUDENTS_FROM_SCHOOL, schoolId);
+        return builder.build();
+    }
+
     public static Uri getSpecificSchoolUri(String schoolId) {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ContentResolver.SCHEME_CONTENT);

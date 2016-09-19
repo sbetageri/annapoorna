@@ -31,6 +31,8 @@ public class StudentProvider extends ContentProvider {
 
     public static final String QUERY_STUDENT_FATHER_GUARDIAN_NAME = "father_guardian_name";
 
+    public static final String QUERY_STUDENTS_FROM_SCHOOL = "students_from_school";
+
     private static final String AUTHORITY = StudentContract.AUTHORITY;
 
     private static final String SCHOOL = StudentContract.SchoolDetails.PATH;
@@ -210,10 +212,9 @@ public class StudentProvider extends ContentProvider {
         );
         String[] projection = {
                 StudentContract.StudentDetails._ID,
-                StudentContract.StudentDetails.PHOTO_PATH,
+                StudentContract.StudentDetails.NAME,
                 StudentContract.StudentDetails.GENDER,
-                StudentContract.StudentDetails.DATE_OF_BIRTH,
-                StudentContract.SchoolDetails.LOCATION_NAME
+                StudentContract.StudentDetails.DATE_OF_BIRTH
         };
         cursor = db.query(StudentContract.StudentDetails.TABLE_NAME,
                 projection,

@@ -37,6 +37,7 @@
 
         <TextView
             android:id="@+id/overview_school_strength"
+            tools:text="sai"
             android:layout_width="0dp"
             android:gravity="center_horizontal"
             android:layout_height="match_parent"

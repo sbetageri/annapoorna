@@ -145,6 +145,17 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         }
     }
 
+    private String convertDateToYYYYMMDDFormat(String date) {
+        String[] dob = date.split("/");
+        StringBuilder sb = new StringBuilder();
+        sb.append(dob[2]);
+        sb.append("/");
+        sb.append(dob[1]);
+        sb.append("/");
+        sb.append(dob[0]);
+        return sb.toString();
+    }
+
     private ContentValues parseStudentToContentValues() {
         ContentValues values = new ContentValues();
         values.put(StudentContract.StudentDetails.NAME, mStudent.mName);
