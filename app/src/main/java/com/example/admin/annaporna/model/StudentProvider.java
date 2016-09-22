@@ -383,32 +383,38 @@ public class StudentProvider extends ContentProvider {
         switch(sUriMatcher.match(uri)) {
 
             case SCHOOL_CODE:
+                Log.e(_TAG, "school_code");
                 cursor = getAllSchoolOverview(db);
                 break;
 
             case SCHOOL_EXISTS:
-                Log.e(_TAG, "checking if school exists");
+                Log.e(_TAG, "school_exists");
                 String name = uri.getQueryParameter(QUERY_SCHOOL_NAME);
                 String location = uri.getQueryParameter(QUERY_SCHOOL_LOCATION);
                 cursor = getSchool(db, name, location);
                 break;
 
             case SCHOOL_SPECIFIC_CODE:
+                Log.e(_TAG, "specific school");
                 schoolId = uri.getLastPathSegment();
                 cursor = getSchoolDetails(db, schoolId);
                 break;
 
             case SCHOOL_ALL_STUDENTS_CODE:
-                schoolId = uri.getLastPathSegment();
+                Log.e(_TAG, "school_all_students_code");
+                schoolId = uri.getQueryParameter(QUERY_STUDENTS_FROM_SCHOOL);
+                Log.e(_TAG, "school id  : " + schoolId);
                 Log.e(_TAG, "all students from school : " + schoolId);
                 cursor = getAllStudentFromSchool(db, schoolId);
                 break;
 
             case STUDENT_CODE:
+                Log.e(_TAG, "student_code");
                 cursor = getAllStudentOverview(db);
                 break;
 
             case STUDENT_EXISTS:
+                Log.e(_TAG, "student_exists");
                 String studentName = uri.getQueryParameter(QUERY_STUDENT_NAME);
                 String dob = uri.getQueryParameter(QUERY_STUDENT_DOB);
                 String fatherGuardianName = uri.getQueryParameter(QUERY_STUDENT_FATHER_GUARDIAN_NAME);
@@ -417,25 +423,30 @@ public class StudentProvider extends ContentProvider {
                 break;
 
             case STUDENT_SPECIFIC_CODE:
+                Log.e(_TAG, "student_specific_code");
                 studentId = uri.getLastPathSegment();
                 cursor = getStudentDetails(db, studentId);
                 break;
 
             case STUDENT_HEALTH_CODE:
+                Log.e(_TAG, "student_health_code");
                 studentId = uri.getLastPathSegment();
                 cursor = getStudentHealthReports(db, studentId);
                 break;
 
             case HEALTH_CODE:
+                Log.e(_TAG, "health_code");
                 cursor = getAllHealthReports(db);
                 break;
 
             case HEALTH_SPECIFIC_CODE:
+                Log.e(_TAG, "health_specific_code");
                 healthID = uri.getLastPathSegment();
                 cursor = getHealthDetails(db, healthID);
                 break;
 
             default:
+                Log.e(_TAG, "default");
                 cursor = null;
         }
         return cursor;

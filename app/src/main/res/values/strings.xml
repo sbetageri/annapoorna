@@ -87,4 +87,6 @@
     <string name="error_gender">Please select a gender</string>
 
     <string name="date_error">Required DD/MM/YYYY</string>
+
+    <string name="age">Age</string>
 </resources>

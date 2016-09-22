@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.admin.annaporna.R;
+import com.example.admin.annaporna.SchoolDetailsActivity;
 import com.example.admin.annaporna.model.StudentContract;
 import com.example.admin.annaporna.service.DatabaseService;
 
@@ -91,7 +92,10 @@ public class StudentDetailInputActivity extends AppCompatActivity {
 
         mStudent.setName(mStudentName.getText().toString());
         mStudent.setGender(mGender);
-        mStudent.setDob(mDob.getText().toString());
+
+        String dob = convertDateToYYYYMMDDFormat(mDob.getText().toString());
+        mStudent.setDob(dob);
+
         mStudent.setFatherGuardianName(mFatherGuardianName.getText().toString());
         mStudent.setMotherName(mMotherName.getText().toString());
         mStudent.setAddress(mAddress.getText().toString());
@@ -164,6 +168,7 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         values.put(StudentContract.StudentDetails.FATHER_OR_GUARDIAN_NAME, mStudent.mFatherGuardianName);
         values.put(StudentContract.StudentDetails.MOTHER_NAME, mStudent.mMotherName);
         values.put(StudentContract.StudentDetails.ADDRESS, mStudent.mAddress);
+        values.put(StudentContract.StudentDetails.SCHOOL_ID, mStudent.mSchoolId);
         return values;
     }
 
@@ -174,6 +179,12 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.student_details_input_title));
         ButterKnife.bind(this);
         mStudent = new Student();
+
+        Intent intent = getIntent();
+        String schoolId = intent.getStringExtra(SchoolDetailsActivity.SCHOOL_ID);
+
+        mStudent.mSchoolId = schoolId;
+
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab_student_added);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

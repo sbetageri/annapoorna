@@ -52,6 +52,7 @@ public class StudentListFrag extends Fragment implements LoaderManager.LoaderCal
         ButterKnife.bind(this, v);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mAdapter);
 
         getLoaderManager().initLoader(STUDENT_CURSOR_TAG, null, this);
 
@@ -72,7 +73,7 @@ public class StudentListFrag extends Fragment implements LoaderManager.LoaderCal
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         mSchoolId = args.getString(SchoolDetailsActivity.SCHOOL_ID);
-        mAdapter = new StudentListAdapter();
+        mAdapter = new StudentListAdapter(getContext());
     }
 
     @Override
@@ -84,6 +85,7 @@ public class StudentListFrag extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.e(_TAG, "student cursor count : " + Integer.toString(data.getCount()));
         if(data != null && data.getCount() > 0) {
             mEmptyList.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);

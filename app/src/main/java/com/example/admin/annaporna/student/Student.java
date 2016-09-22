@@ -16,6 +16,12 @@ public class Student {
 
     public String mAddress;
 
+    public String mSchoolId;
+
+    public void setSchoolId(String schoolId) {
+        mSchoolId = schoolId;
+    }
+
     public void setAddress(String address) {
         mAddress = address;
     }

@@ -9,9 +9,9 @@ public class Utils {
     public static int getAge(String[] date) {
         // date format
         // YYYY/MM/DD
-        int curYear = Calendar.YEAR;
-        int curMonth = Calendar.MONTH;
-        int curDay = Calendar.DAY_OF_MONTH;
+        int curYear = Calendar.getInstance().get(Calendar.YEAR);
+        int curMonth = Calendar.getInstance().get(Calendar.MONTH);
+        int curDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int day = Integer.parseInt(date[2]);
         int month = Integer.parseInt(date[1]);
         int age = curYear - Integer.parseInt(date[0]);
