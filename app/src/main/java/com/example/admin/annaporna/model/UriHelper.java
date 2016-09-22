@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import com.example.admin.annaporna.R;
 import com.example.admin.annaporna.model.StudentContract;
@@ -12,6 +13,7 @@ import com.example.admin.annaporna.model.StudentContract;
  * Created by Admin on 13-09-2016.
  */
 public class UriHelper {
+    private static final String _TAG = "uri_helper";
     public static Uri getAllSchoolUri() {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ContentResolver.SCHEME_CONTENT);
@@ -68,7 +70,7 @@ public class UriHelper {
 
     public static Uri doesSchoolExistUri(String name, String location) {
         Uri.Builder builder = buildBaseUri().buildUpon();
-        builder.appendPath(StudentContract.StudentDetails.PATH);
+        builder.appendPath(StudentContract.SchoolDetails.PATH);
         builder.appendPath(StudentContract.EXISTS);
         builder.appendQueryParameter(StudentProvider.QUERY_SCHOOL_NAME, name);
         builder.appendQueryParameter(StudentProvider.QUERY_SCHOOL_LOCATION, location);

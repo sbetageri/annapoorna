@@ -137,7 +137,10 @@ public class DatabaseService extends IntentService {
                 Log.e(_TAG, "student_details");
                 if(!isStudentPresentInDb(resolver, data)) {
                     pushStudentDetailsToDb(resolver, data);
+                } else {
+                    Log.e(_TAG, "student already exists in school");
                 }
+                break;
 
             case NO_DETAILS:
                 break;

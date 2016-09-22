@@ -185,6 +185,7 @@ public class StudentDetailInputActivity extends AppCompatActivity {
                     intent.putExtra(DatabaseService.DATA_TYPE, DatabaseService.STUDENT_DETAILS);
                     intent.putExtra(DatabaseService.CONTENT_VALUE, values);
                     startService(intent);
+                    finish();
                 }
             }
         });

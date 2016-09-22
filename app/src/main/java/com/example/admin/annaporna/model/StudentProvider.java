@@ -248,7 +248,6 @@ public class StudentProvider extends ContentProvider {
         // age has to be calculated dynamically
         String[] projection = {
                 StudentContract.StudentDetails._ID,
-                StudentContract.StudentDetails.PHOTO_PATH,
                 StudentContract.StudentDetails.NAME,
                 StudentContract.StudentDetails.DATE_OF_BIRTH,
                 StudentContract.StudentDetails.GENDER
@@ -262,6 +261,7 @@ public class StudentProvider extends ContentProvider {
                 null,
                 null,
                 null);
+        Log.e(_TAG, "all students from school : " + schoolId + " count : " + Integer.toString(cursor.getCount()));
         return cursor;
     }
 
@@ -400,6 +400,7 @@ public class StudentProvider extends ContentProvider {
 
             case SCHOOL_ALL_STUDENTS_CODE:
                 schoolId = uri.getLastPathSegment();
+                Log.e(_TAG, "all students from school : " + schoolId);
                 cursor = getAllStudentFromSchool(db, schoolId);
                 break;
 
