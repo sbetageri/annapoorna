@@ -11,6 +11,9 @@ import com.example.admin.annaporna.model.StudentContract;
 public class School {
     private static final String _TAG = "school";
 
+    public static final String SCHOOL_ID = "school_id";
+    public static final String SCHOOL_NAME = "school_name";
+
     public String mSchoolId;
 
     public String mSchoolName;

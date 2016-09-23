@@ -27,7 +27,7 @@
         </activity>
         <activity android:name=".school.SchoolDetailsInputActivity">
         </activity>
-        <activity android:name=".SchoolDetailsActivity">
+        <activity android:name=".school.SchoolDetailsActivity">
         </activity>
         <activity android:name=".student.StudentDetailInputActivity">
         </activity>

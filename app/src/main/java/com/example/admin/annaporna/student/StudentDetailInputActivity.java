@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.admin.annaporna.R;
-import com.example.admin.annaporna.SchoolDetailsActivity;
+import com.example.admin.annaporna.school.School;
+import com.example.admin.annaporna.school.SchoolDetailsActivity;
 import com.example.admin.annaporna.model.StudentContract;
 import com.example.admin.annaporna.service.DatabaseService;
 
@@ -181,7 +182,7 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         mStudent = new Student();
 
         Intent intent = getIntent();
-        String schoolId = intent.getStringExtra(SchoolDetailsActivity.SCHOOL_ID);
+        String schoolId = intent.getStringExtra(School.SCHOOL_ID);
 
         mStudent.mSchoolId = schoolId;
 

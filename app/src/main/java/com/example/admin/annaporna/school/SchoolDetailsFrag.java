@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,13 +12,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.admin.annaporna.R;
-import com.example.admin.annaporna.SchoolDetailsActivity;
 import com.example.admin.annaporna.model.UriHelper;
 
 /**
  * Created by Admin on 15-09-2016.
  */
 public class SchoolDetailsFrag extends Fragment {
+    // schoolId has to be passed in an argument
     private static final String _TAG = "school_detail_frag";
     private School mSchool;
 
@@ -75,7 +74,7 @@ public class SchoolDetailsFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        String schoolId = args.getString(SchoolDetailsActivity.SCHOOL_ID);
+        String schoolId = args.getString(School.SCHOOL_ID);
         mSchool = getSchoolDetails(schoolId);
     }
 

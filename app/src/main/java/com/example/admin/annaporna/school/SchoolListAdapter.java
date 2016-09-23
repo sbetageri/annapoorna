@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.admin.annaporna.R;
-import com.example.admin.annaporna.SchoolDetailsActivity;
 import com.example.admin.annaporna.model.StudentContract;
 
 /**
@@ -52,8 +51,8 @@ public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.Vi
                 String schoolId = cursor.getString(cursor.getColumnIndex(StudentContract.SchoolDetails._ID));
                 String schoolName = cursor.getString(cursor.getColumnIndex(StudentContract.SchoolDetails.SCHOOL_NAME));
                 Intent intent = new Intent(mContext, SchoolDetailsActivity.class);
-                intent.putExtra(SchoolDetailsActivity.SCHOOL_ID, schoolId);
-                intent.putExtra(SchoolDetailsActivity.SCHOOL_NAME, schoolName);
+                intent.putExtra(School.SCHOOL_ID, schoolId);
+                intent.putExtra(School.SCHOOL_NAME, schoolName);
                 mContext.startActivity(intent);
             }
         });

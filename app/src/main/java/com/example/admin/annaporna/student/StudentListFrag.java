@@ -18,7 +18,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.admin.annaporna.R;
-import com.example.admin.annaporna.SchoolDetailsActivity;
+import com.example.admin.annaporna.school.School;
+import com.example.admin.annaporna.school.SchoolDetailsActivity;
 import com.example.admin.annaporna.model.UriHelper;
 
 import butterknife.BindView;
@@ -61,7 +62,7 @@ public class StudentListFrag extends Fragment implements LoaderManager.LoaderCal
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), StudentDetailInputActivity.class);
-                intent.putExtra(SchoolDetailsActivity.SCHOOL_ID, mSchoolId);
+                intent.putExtra(School.SCHOOL_ID, mSchoolId);
                 startActivity(intent);
             }
         });
@@ -72,7 +73,7 @@ public class StudentListFrag extends Fragment implements LoaderManager.LoaderCal
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        mSchoolId = args.getString(SchoolDetailsActivity.SCHOOL_ID);
+        mSchoolId = args.getString(School.SCHOOL_ID);
         mAdapter = new StudentListAdapter(getContext());
     }
 
