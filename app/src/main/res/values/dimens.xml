@@ -29,4 +29,7 @@
     <dimen name="textSubHeadingSize">16dp</dimen>
     <dimen name="textBodySize">14dp</dimen>
     <dimen name="textCaption">12dp</dimen>
+
+    <!-- Tab layout dimensions -->
+    <dimen name="tab_layout_elevation">4dp</dimen>
 </resources>

@@ -1,15 +1,15 @@
 package com.example.admin.annaporna.school;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TableLayout;
 
 import com.example.admin.annaporna.R;
-import com.example.admin.annaporna.school.SchoolDetailsFrag;
-import com.example.admin.annaporna.student.StudentListFrag;
 
 /*
     TODO
@@ -23,16 +23,16 @@ public class SchoolDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_details);
-        getSupportActionBar().setTitle("SAI RAM");
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment fragment = new StudentListFrag();
-
-        // the args hold the schoolID
-        Bundle args = getIntent().getExtras();
-        fragment.setArguments(args);
-
-        ft.add(R.id.placeholder, fragment, null);
-        ft.commit();
+        Intent intent = getIntent();
+        String schoolName = intent.getStringExtra(School.SCHOOL_NAME);
+        String schoolId = intent.getStringExtra(School.SCHOOL_ID);
+        getSupportActionBar().setTitle(schoolName);
+        getSupportActionBar().setElevation(0.0f);
+        FragmentStatePagerAdapter pagerAdapter = new SchoolPagerAdapter(this, fm, schoolId);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.school_details_tab_layout);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.school_details_viewpager);
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

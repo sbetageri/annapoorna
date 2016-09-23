@@ -57,7 +57,9 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         for(int i = 0; i < mCursor.getCount(); i++) {
             mCursor.moveToPosition(i);
             String[] cols = mCursor.getColumnNames();
-            Log.e(_TAG, cols[i] + " : " + mCursor.getString(mCursor.getColumnIndex(cols[i])));
+            for(String col : cols) {
+                Log.e(_TAG, col + " : " + mCursor.getString(mCursor.getColumnIndex(col)));
+            }
         }
     }
 

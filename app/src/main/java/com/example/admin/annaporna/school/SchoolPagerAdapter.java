@@ -1,11 +1,13 @@
 package com.example.admin.annaporna.school;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.example.admin.annaporna.R;
 import com.example.admin.annaporna.student.StudentListFrag;
 
 /**
@@ -15,12 +17,12 @@ import com.example.admin.annaporna.student.StudentListFrag;
 public class SchoolPagerAdapter extends FragmentStatePagerAdapter{
     private String mSchoolId;
     private Bundle args;
-    private String mSchoolName;
+    private Context mContext;
 
-    public SchoolPagerAdapter(FragmentManager fm, String schoolId, String schoolName) {
+    public SchoolPagerAdapter(Context context, FragmentManager fm, String schoolId) {
         super(fm);
+        mContext = context;
         mSchoolId = schoolId;
-        mSchoolName = schoolName;
         args = new Bundle();
         args.putString(School.SCHOOL_ID, mSchoolId);
     }
@@ -39,7 +41,11 @@ public class SchoolPagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mSchoolName;
+        if(position == 0) {
+            return mContext.getString(R.string.school_details);
+        } else {
+            return mContext.getString(R.string.school_students);
+        }
     }
 
     @Override
