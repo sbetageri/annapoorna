@@ -14,7 +14,7 @@
         android:id="@+id/empty_student_overview_list"
         android:visibility="gone"
         android:text="@string/empty_student_list"
-        android:textSize="@dimen/textSubHeadingSize"
+        android:textSize="@dimen/text_sub_heading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

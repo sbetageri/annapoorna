@@ -93,4 +93,6 @@
     <string name="school_details">Details</string>
 
     <string name="school_students">Students</string>
+
+    <string name="take_photo">Take a picture</string>
 </resources>

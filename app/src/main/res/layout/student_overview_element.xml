@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textSize="@dimen/textSubHeadingSize"
+            android:textSize="@dimen/text_sub_heading"
             android:textStyle="bold"/>
 
         <!--
@@ -40,13 +40,13 @@
             <TextView
                 android:layout_gravity="left|start"
                 android:text="@string/age"
-                android:textSize="@dimen/textBodySize"
+                android:textSize="@dimen/text_body_size"
                 />
 
             <TextView
                 android:id="@+id/overview_student_age"
                 android:layout_gravity="right|end"
-                android:textSize="@dimen/textBodySize"
+                android:textSize="@dimen/text_body_size"
                 />
 
         </GridLayout>
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/recycler_element_top_padding"
-        android:textSize="@dimen/textBodySize"/>
+        android:textSize="@dimen/text_body_size"/>
 
     <View
         android:layout_width="match_parent"

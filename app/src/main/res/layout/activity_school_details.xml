@@ -17,6 +17,8 @@
             style="@style/MyTabLayout"
             app:tabTextColor="#B3FFFFFF"
             app:tabSelectedTextColor="#FFFF"
+            app:tabIndicatorHeight="@dimen/tab_layout_indicator_height"
+            app:tabIndicatorColor="#FFFF"
             android:id="@+id/school_details_tab_layout"
             android:elevation="@dimen/tab_layout_elevation"
             android:layout_width="match_parent"

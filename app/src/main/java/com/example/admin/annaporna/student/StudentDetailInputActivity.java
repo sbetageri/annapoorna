@@ -2,12 +2,20 @@ package com.example.admin.annaporna.student;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.FileProvider;
+import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.admin.annaporna.R;
@@ -15,6 +23,12 @@ import com.example.admin.annaporna.school.School;
 import com.example.admin.annaporna.school.SchoolDetailsActivity;
 import com.example.admin.annaporna.model.StudentContract;
 import com.example.admin.annaporna.service.DatabaseService;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +40,17 @@ public class StudentDetailInputActivity extends AppCompatActivity {
      */
     public static final int INPUT_COUNT = 6;
 
+    private static final String _TAG = "student_input";
+
+    private static final int IMAGE_REQUEST_CODE = 9;
+
     private Student mStudent;
+
+    @BindView(R.id.student_picture)
+    ImageView mStudentPhoto;
+
+    @BindView(R.id.take_photo_view_btn)
+    ImageButton mTakePhoto;
 
     @BindView(R.id.student_name_input_layout)
     TextInputLayout mNameLayout;
@@ -61,10 +85,40 @@ public class StudentDetailInputActivity extends AppCompatActivity {
     TextInputEditText mAddress;
 
     public void onGenderBtnClick(View v) {
-        if(v.getId() == R.id.radio_btn_boys) {
+        if (v.getId() == R.id.radio_btn_boys) {
             mGender = "male";
         } else {
             mGender = "female";
+        }
+    }
+
+    private File createTempImage() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String fileName = "JPEG_" + timeStamp;
+        File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File temp = null;
+        try {
+            temp = File.createTempFile(fileName, ".jpg", dir);
+        } catch (IOException e) {
+            Log.e(_TAG, "unable to create file");
+            e.printStackTrace();
+        }
+        String filePath = "file:" + temp.getAbsolutePath();
+        mStudent.mPhotoPath = filePath;
+        return temp;
+    }
+
+    public void takeStudentPhoto(View v) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            File image = createTempImage();
+            if (image != null) {
+                Uri uri = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        image);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                startActivityForResult(intent, IMAGE_REQUEST_CODE);
+            }
         }
     }
 
@@ -74,20 +128,20 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         String[] date = input.split("/");
         int day = Integer.parseInt(date[0]);
         int month = Integer.parseInt(date[1]);
-        if(day < 1 || day > 31) {
+        if (day < 1 || day > 31) {
             return 0;
         }
-        if(month < 0 && month > 13) {
+        if (month < 0 && month > 13) {
             return 0;
         }
-        if(date[2].length() != 4) {
+        if (date[2].length() != 4) {
             return 0;
         }
         return 1;
     }
 
     private void parseInput() {
-        if(mStudent == null) {
+        if (mStudent == null) {
             mStudent = new Student();
         }
 
@@ -111,13 +165,13 @@ public class StudentDetailInputActivity extends AppCompatActivity {
          */
         String errMsg = getString(R.string.blank_input_field_error);
         int count = 0;
-        if(mStudent.mGender == null) {
+        if (mStudent.mGender == null) {
             Toast.makeText(this, getString(R.string.error_gender), Toast.LENGTH_LONG).show();
         } else {
             count++;
         }
 
-        if(mStudent.mName.length() == 0) {
+        if (mStudent.mName.length() == 0) {
             mNameLayout.setError(errMsg);
         } else {
             count++;
@@ -125,25 +179,25 @@ public class StudentDetailInputActivity extends AppCompatActivity {
 
         count += verifyDate();
 
-        if(mStudent.mFatherGuardianName.length() == 0) {
+        if (mStudent.mFatherGuardianName.length() == 0) {
             mFatherGuardianLayout.setError(errMsg);
         } else {
             count++;
         }
 
-        if(mStudent.mMotherName.length() == 0) {
+        if (mStudent.mMotherName.length() == 0) {
             mMotherLayout.setError(errMsg);
         } else {
             count++;
         }
 
-        if(mStudent.mAddress.length() == 0) {
+        if (mStudent.mAddress.length() == 0) {
             mAddressLayout.setError(errMsg);
         } else {
             count++;
         }
 
-        if(count == INPUT_COUNT) {
+        if (count == INPUT_COUNT) {
             return true;
         } else {
             return false;
@@ -186,12 +240,12 @@ public class StudentDetailInputActivity extends AppCompatActivity {
 
         mStudent.mSchoolId = schoolId;
 
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab_student_added);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_student_added);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 parseInput();
-                if(isInputValid()) {
+                if (isInputValid()) {
                     ContentValues values = parseStudentToContentValues();
                     Intent intent = new Intent(view.getContext(), DatabaseService.class);
                     intent.putExtra(DatabaseService.DATA_TYPE, DatabaseService.STUDENT_DETAILS);

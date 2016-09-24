@@ -18,6 +18,8 @@ public class Student {
 
     public String mSchoolId;
 
+    public String mPhotoPath;
+
     public void setSchoolId(String schoolId) {
         mSchoolId = schoolId;
     }

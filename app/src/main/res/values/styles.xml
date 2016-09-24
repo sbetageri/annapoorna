@@ -25,9 +25,13 @@
     </style>
 
     <style name="MyTabLayout" parent="TextAppearance.AppCompat.Button">
-        <item name="android:textSize">@dimen/textBodySize</item>
+        <item name="android:textSize">@dimen/text_body_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="imageFAB">
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
 </resources>
