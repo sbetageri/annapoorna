@@ -9,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.FileProvider;
-import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,14 +19,12 @@ import android.widget.Toast;
 
 import com.example.admin.annaporna.R;
 import com.example.admin.annaporna.school.School;
-import com.example.admin.annaporna.school.SchoolDetailsActivity;
 import com.example.admin.annaporna.model.StudentContract;
 import com.example.admin.annaporna.service.DatabaseService;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -43,6 +40,10 @@ public class StudentDetailInputActivity extends AppCompatActivity {
     private static final String _TAG = "student_input";
 
     private static final int IMAGE_REQUEST_CODE = 9;
+
+    private static final boolean VALID_DATE = true;
+
+    private static final boolean INVALID_DATE = false;
 
     private Student mStudent;
 
@@ -122,22 +123,22 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         }
     }
 
-    private int verifyDate() {
+    private boolean isValidDate() {
         // date is supposed to be dd/mm/yyyy
         String input = mDob.getText().toString();
         String[] date = input.split("/");
         int day = Integer.parseInt(date[0]);
         int month = Integer.parseInt(date[1]);
         if (day < 1 || day > 31) {
-            return 0;
+            return INVALID_DATE;
         }
         if (month < 0 && month > 13) {
-            return 0;
+            return INVALID_DATE;
         }
         if (date[2].length() != 4) {
-            return 0;
+            return INVALID_DATE;
         }
-        return 1;
+        return VALID_DATE;
     }
 
     private void parseInput() {
@@ -177,7 +178,9 @@ public class StudentDetailInputActivity extends AppCompatActivity {
             count++;
         }
 
-        count += verifyDate();
+        if(isValidDate()) {
+            count++;
+        }
 
         if (mStudent.mFatherGuardianName.length() == 0) {
             mFatherGuardianLayout.setError(errMsg);
@@ -237,7 +240,6 @@ public class StudentDetailInputActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String schoolId = intent.getStringExtra(School.SCHOOL_ID);
-
         mStudent.mSchoolId = schoolId;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_student_added);
