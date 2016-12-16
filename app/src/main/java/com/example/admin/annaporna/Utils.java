@@ -15,13 +15,88 @@ public class Utils {
         int day = Integer.parseInt(date[2]);
         int month = Integer.parseInt(date[1]);
         int age = curYear - Integer.parseInt(date[0]);
-        if(month > curMonth) {
+        if (month > curMonth) {
             age -= 1;
-        } else if(month == curMonth) {
-            if(curDay < day) {
+        } else if (month == curMonth) {
+            if (curDay < day) {
                 age -= 1;
             }
         }
         return age;
+    }
+
+    public static boolean isLeapYear(int year) {
+        // If divisible by 4, 100 and 400. Then it is a leap year
+        // If divisible by only 4, then leap year.
+        if (year % 4 != 0) {
+            return false;
+        } else {
+            if (year % 100 == 0) {
+                if (year % 400 == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        }
+    }
+
+    public static boolean isValidDate(String input) {
+        // date is supposed to be dd/mm/yyyy
+        final int MONTH_MIN_DATE = 1;
+
+        final int LEAP_YEAR_MAX_DATE = 29;
+
+        int[] MAX_DAYS_IN_MONTHS = {
+                31, // Jan
+                28, // Feb, varies
+                31, // March
+                30, // April
+                31, // May
+                30, // June
+                31, // July
+                31, // Aug
+                30, // Sept
+                31, // Oct
+                30, // Nov
+                31  // Dec
+        };
+
+        final int MIN_MONTH = 1;
+        final int MAX_MONTH = 12;
+        String[] date = input.split("/");
+        int day = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int year = Integer.parseInt(date[2]);
+        if(date[2].length() != 4) {
+            return false;
+        }
+        if(month >= MIN_MONTH && month < MAX_MONTH) {
+            if(isLeapYear(year)) {
+                MAX_DAYS_IN_MONTHS[1] = LEAP_YEAR_MAX_DATE;
+            }
+
+            if(day >= MONTH_MIN_DATE && day <= MAX_DAYS_IN_MONTHS[month - 1]) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public static String convertDateToYYYYMMDDFormat(String date) {
+        // input is of the form DD/MM/YYYY
+        String[] dob = date.split("/");
+        StringBuilder sb = new StringBuilder();
+        sb.append(dob[2]);
+        sb.append("/");
+        sb.append(dob[1]);
+        sb.append("/");
+        sb.append(dob[0]);
+        return sb.toString();
     }
 }

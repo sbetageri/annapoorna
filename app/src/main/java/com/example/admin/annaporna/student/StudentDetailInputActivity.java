@@ -11,6 +11,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.admin.annaporna.R;
+import com.example.admin.annaporna.Utils;
 import com.example.admin.annaporna.school.School;
 import com.example.admin.annaporna.model.StudentContract;
 import com.example.admin.annaporna.service.DatabaseService;
@@ -40,12 +42,6 @@ public class StudentDetailInputActivity extends AppCompatActivity {
     private static final String _TAG = "student_input";
 
     private static final int IMAGE_REQUEST_CODE = 9;
-
-    private static final boolean VALID_DATE = true;
-
-    private static final boolean INVALID_DATE = false;
-
-    private Student mStudent;
 
     @BindView(R.id.student_picture)
     ImageView mStudentPhoto;
@@ -105,7 +101,6 @@ public class StudentDetailInputActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         String filePath = "file:" + temp.getAbsolutePath();
-        mStudent.mPhotoPath = filePath;
         return temp;
     }
 
@@ -123,41 +118,21 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isValidDate() {
-        // date is supposed to be dd/mm/yyyy
-        String input = mDob.getText().toString();
-        String[] date = input.split("/");
-        int day = Integer.parseInt(date[0]);
-        int month = Integer.parseInt(date[1]);
-        if (day < 1 || day > 31) {
-            return INVALID_DATE;
-        }
-        if (month < 0 && month > 13) {
-            return INVALID_DATE;
-        }
-        if (date[2].length() != 4) {
-            return INVALID_DATE;
-        }
-        return VALID_DATE;
+    private Student parseInput() {
+        Student student = new Student();
+
+        student.setName(mStudentName.getText().toString());
+        student.setGender(mGender);
+
+        student.setDob(mDob.getText().toString());
+
+        student.setFatherGuardianName(mFatherGuardianName.getText().toString());
+        student.setMotherName(mMotherName.getText().toString());
+        student.setAddress(mAddress.getText().toString());
+        return student;
     }
 
-    private void parseInput() {
-        if (mStudent == null) {
-            mStudent = new Student();
-        }
-
-        mStudent.setName(mStudentName.getText().toString());
-        mStudent.setGender(mGender);
-
-        String dob = convertDateToYYYYMMDDFormat(mDob.getText().toString());
-        mStudent.setDob(dob);
-
-        mStudent.setFatherGuardianName(mFatherGuardianName.getText().toString());
-        mStudent.setMotherName(mMotherName.getText().toString());
-        mStudent.setAddress(mAddress.getText().toString());
-    }
-
-    private boolean isInputValid() {
+    private boolean isInputValid(Student student) {
         /*
             INPUT_COUNT is the number of input fields
             count is the local count of number of valid inputs
@@ -166,35 +141,35 @@ public class StudentDetailInputActivity extends AppCompatActivity {
          */
         String errMsg = getString(R.string.blank_input_field_error);
         int count = 0;
-        if (mStudent.mGender == null) {
+        if (student.mGender == null) {
             Toast.makeText(this, getString(R.string.error_gender), Toast.LENGTH_LONG).show();
         } else {
             count++;
         }
 
-        if (mStudent.mName.length() == 0) {
+        if (student.mName.length() == 0) {
             mNameLayout.setError(errMsg);
         } else {
             count++;
         }
 
-        if(isValidDate()) {
+        if(Utils.isValidDate(mDob.getText().toString())) {
             count++;
         }
 
-        if (mStudent.mFatherGuardianName.length() == 0) {
+        if (student.mFatherGuardianName.length() == 0) {
             mFatherGuardianLayout.setError(errMsg);
         } else {
             count++;
         }
 
-        if (mStudent.mMotherName.length() == 0) {
+        if (student.mMotherName.length() == 0) {
             mMotherLayout.setError(errMsg);
         } else {
             count++;
         }
 
-        if (mStudent.mAddress.length() == 0) {
+        if (student.mAddress.length() == 0) {
             mAddressLayout.setError(errMsg);
         } else {
             count++;
@@ -207,26 +182,16 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         }
     }
 
-    private String convertDateToYYYYMMDDFormat(String date) {
-        String[] dob = date.split("/");
-        StringBuilder sb = new StringBuilder();
-        sb.append(dob[2]);
-        sb.append("/");
-        sb.append(dob[1]);
-        sb.append("/");
-        sb.append(dob[0]);
-        return sb.toString();
-    }
-
-    private ContentValues parseStudentToContentValues() {
+    private ContentValues parseStudentToContentValues(Student student) {
         ContentValues values = new ContentValues();
-        values.put(StudentContract.StudentDetails.NAME, mStudent.mName);
-        values.put(StudentContract.StudentDetails.DATE_OF_BIRTH, mStudent.mDob);
-        values.put(StudentContract.StudentDetails.GENDER, mStudent.mGender);
-        values.put(StudentContract.StudentDetails.FATHER_OR_GUARDIAN_NAME, mStudent.mFatherGuardianName);
-        values.put(StudentContract.StudentDetails.MOTHER_NAME, mStudent.mMotherName);
-        values.put(StudentContract.StudentDetails.ADDRESS, mStudent.mAddress);
-        values.put(StudentContract.StudentDetails.SCHOOL_ID, mStudent.mSchoolId);
+        values.put(StudentContract.StudentDetails.NAME, student.mName);
+        student.mDob = Utils.convertDateToYYYYMMDDFormat(student.mDob);
+        values.put(StudentContract.StudentDetails.DATE_OF_BIRTH, student.mDob);
+        values.put(StudentContract.StudentDetails.GENDER, student.mGender);
+        values.put(StudentContract.StudentDetails.FATHER_OR_GUARDIAN_NAME, student.mFatherGuardianName);
+        values.put(StudentContract.StudentDetails.MOTHER_NAME, student.mMotherName);
+        values.put(StudentContract.StudentDetails.ADDRESS, student.mAddress);
+        values.put(StudentContract.StudentDetails.SCHOOL_ID, student.mSchoolId);
         return values;
     }
 
@@ -236,19 +201,18 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_detail_input);
         getSupportActionBar().setTitle(getString(R.string.student_details_input_title));
         ButterKnife.bind(this);
-        mStudent = new Student();
 
         Intent intent = getIntent();
-        String schoolId = intent.getStringExtra(School.SCHOOL_ID);
-        mStudent.mSchoolId = schoolId;
+        final String schoolId = intent.getStringExtra(School.SCHOOL_ID);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_student_added);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                parseInput();
-                if (isInputValid()) {
-                    ContentValues values = parseStudentToContentValues();
+                Student student = parseInput();
+                if (isInputValid(student)) {
+                    student.mSchoolId = schoolId;
+                    ContentValues values = parseStudentToContentValues(student);
                     Intent intent = new Intent(view.getContext(), DatabaseService.class);
                     intent.putExtra(DatabaseService.DATA_TYPE, DatabaseService.STUDENT_DETAILS);
                     intent.putExtra(DatabaseService.CONTENT_VALUE, values);
