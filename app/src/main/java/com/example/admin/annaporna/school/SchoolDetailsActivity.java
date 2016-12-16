@@ -23,14 +23,17 @@ public class SchoolDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_details);
+
         FragmentManager fm = getSupportFragmentManager();
         Intent intent = getIntent();
         String schoolName = intent.getStringExtra(School.SCHOOL_NAME);
         String schoolId = intent.getStringExtra(School.SCHOOL_ID);
         getSupportActionBar().setTitle(schoolName);
         getSupportActionBar().setElevation(0.0f);
+
         FragmentStatePagerAdapter pagerAdapter = new SchoolPagerAdapter(this, fm, schoolId);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.school_details_tab_layout);
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.school_details_viewpager);
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
