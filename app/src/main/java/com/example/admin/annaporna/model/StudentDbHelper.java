@@ -18,6 +18,7 @@ public class StudentDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(StudentContract.StudentDetails.CREATE_TABLE);
         sqLiteDatabase.execSQL(StudentContract.HealthReport.CREATE_TABLE);
         sqLiteDatabase.execSQL(StudentContract.ExtraInformation.CREATE_TABLE);
+        sqLiteDatabase.execSQL(StudentContract.FollowUp.CREATE_TABLE);
     }
 
     @Override
@@ -26,6 +27,7 @@ public class StudentDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(StudentContract.HealthReport.DROP_TABLE);
         sqLiteDatabase.execSQL(StudentContract.StudentDetails.DROP_TABLE);
         sqLiteDatabase.execSQL(StudentContract.SchoolDetails.DROP_TABLE);
+        sqLiteDatabase.execSQL(StudentContract.FollowUp.DROP_TABLE);
 
         onCreate(sqLiteDatabase);
     }

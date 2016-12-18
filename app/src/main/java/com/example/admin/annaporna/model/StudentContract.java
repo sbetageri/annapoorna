@@ -102,6 +102,30 @@ public abstract class StudentContract {
         public static final String DROP_TABLE = "drop table " + TABLE_NAME;
     }
 
+    public class FollowUp implements BaseColumns {
+        public static final String TABLE_NAME = "follow_up_table";
+
+        public static final String PATH = "followup";
+
+        public static final String _ID = "_id";
+
+        public static final String STUDENT_ID = "student_id";
+
+        public static final String REMARKS = "remarks";
+
+        public static final String DATE_FOR_FOLLOWUP = "date_for_followup";
+
+        public static final String CREATE_TABLE = "create table " + TABLE_NAME + " ( " +
+                _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                STUDENT_ID + " INTEGER, " +
+                REMARKS + " TEXT, " +
+                DATE_FOR_FOLLOWUP + " TEXT, " +
+                "FOREIGN KEY( " + STUDENT_ID + ") REFERENCES " + StudentDetails.TABLE_NAME
+                + " (" + StudentDetails._ID + "));";
+
+        public static final String DROP_TABLE = "drop table " + TABLE_NAME;
+    }
+
     public class HealthReport implements BaseColumns {
         // Health Details are linked to each student
 

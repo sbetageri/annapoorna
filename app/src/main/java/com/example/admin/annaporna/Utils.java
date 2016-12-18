@@ -45,6 +45,9 @@ public class Utils {
 
     public static boolean isValidDate(String input) {
         // date is supposed to be dd/mm/yyyy
+        if(input == null || input.length() == 0) {
+            return false;
+        }
         final int MONTH_MIN_DATE = 1;
 
         final int LEAP_YEAR_MAX_DATE = 29;
