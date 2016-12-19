@@ -1,6 +1,7 @@
 package com.example.admin.annaporna.student;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -8,7 +9,9 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -16,6 +19,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.admin.annaporna.R;
@@ -82,6 +87,7 @@ public class StudentDetailInputActivity extends AppCompatActivity {
     TextInputEditText mAddress;
 
     public void onGenderBtnClick(View v) {
+        Log.e(_TAG, "gender btn click");
         if (v.getId() == R.id.radio_btn_boys) {
             mGender = "male";
         } else {
@@ -139,6 +145,7 @@ public class StudentDetailInputActivity extends AppCompatActivity {
             if count != INPUT_COUNT, then error
                 else OK
          */
+        Log.e(_TAG, "in input valid");
         String errMsg = getString(R.string.blank_input_field_error);
         int count = 0;
         if (student.mGender == null) {
@@ -154,6 +161,7 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         }
 
         if(Utils.isValidDate(mDob.getText().toString())) {
+            Log.e(_TAG, "valid date");
             count++;
         }
 
@@ -175,6 +183,8 @@ public class StudentDetailInputActivity extends AppCompatActivity {
             count++;
         }
 
+        Log.e(_TAG, Integer.toString(count));
+
         if (count == INPUT_COUNT) {
             return true;
         } else {
@@ -195,6 +205,25 @@ public class StudentDetailInputActivity extends AppCompatActivity {
         return values;
     }
 
+    private void showHealthDetailsInputChoiceDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("Health Details")
+                .setMessage(R.string.health_dialog_msg)
+                .setPositiveButton(R.string.positive_health_dialog, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setNegativeButton(R.string.negative_health_dialog, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.create().show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,13 +240,14 @@ public class StudentDetailInputActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Student student = parseInput();
                 if (isInputValid(student)) {
+                    Log.e(_TAG, "valid student input");
                     student.mSchoolId = schoolId;
                     ContentValues values = parseStudentToContentValues(student);
                     Intent intent = new Intent(view.getContext(), DatabaseService.class);
                     intent.putExtra(DatabaseService.DATA_TYPE, DatabaseService.STUDENT_DETAILS);
                     intent.putExtra(DatabaseService.CONTENT_VALUE, values);
                     startService(intent);
-                    finish();
+                    showHealthDetailsInputChoiceDialog();
                 }
             }
         });

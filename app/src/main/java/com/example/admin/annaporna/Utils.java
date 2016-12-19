@@ -1,11 +1,18 @@
 package com.example.admin.annaporna;
 
+import android.util.Log;
+
+import com.example.admin.annaporna.school.SchoolDetailsInputActivity_ViewBinding;
+
 import java.util.Calendar;
 
 /**
  * Created by Admin on 20-09-2016.
  */
 public class Utils {
+
+    public static final String _TAG = "Annaporna_utils";
+
     public static int getAge(String[] date) {
         // date format
         // YYYY/MM/DD
@@ -44,6 +51,7 @@ public class Utils {
     }
 
     public static boolean isValidDate(String input) {
+        Log.e(_TAG, "date : " + input);
         // date is supposed to be dd/mm/yyyy
         if(input == null || input.length() == 0) {
             return false;
@@ -73,10 +81,14 @@ public class Utils {
         int day = Integer.parseInt(date[0]);
         int month = Integer.parseInt(date[1]);
         int year = Integer.parseInt(date[2]);
+        Log.e(_TAG, "day : " + day);
+        Log.e(_TAG, "month : " + month);
+        Log.e(_TAG, "year : " + year);
         if(date[2].length() != 4) {
+            Log.e(_TAG, "length of year insufficient");
             return false;
         }
-        if(month >= MIN_MONTH && month < MAX_MONTH) {
+        if(month >= MIN_MONTH && month <= MAX_MONTH) {
             if(isLeapYear(year)) {
                 MAX_DAYS_IN_MONTHS[1] = LEAP_YEAR_MAX_DATE;
             }
@@ -84,9 +96,11 @@ public class Utils {
             if(day >= MONTH_MIN_DATE && day <= MAX_DAYS_IN_MONTHS[month - 1]) {
                 return true;
             } else {
+                Log.e(_TAG, "invalid day");
                 return false;
             }
         } else {
+            Log.e(_TAG, "invalid month");
             return false;
         }
     }

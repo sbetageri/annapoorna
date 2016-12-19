@@ -95,4 +95,10 @@
     <string name="school_students">Students</string>
 
     <string name="take_photo">Take a picture</string>
+
+    <string name="health_dialog_msg">Enter Health Details</string>
+
+    <string name="positive_health_dialog">YES</string>
+
+    <string name="negative_health_dialog">NO</string>
 </resources>
